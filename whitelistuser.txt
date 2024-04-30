@@ -1,0 +1,26 @@
+repeat
+  task.wait()
+until game.Players.LocalPlayer.Character~=nil;
+local a=tostring(game.Players.LocalPlayer.Character);
+if _G.qq~='1790789616' then
+  game.Players.LocalPlayer:Kick('请你获得最新版本的白脚本')
+end
+if game:HttpGet('http://baiscript.hppro1.hpnu.cn/pil/getwhitelist?name='..a)=='True' then
+spawn(function()
+game.StarterGui:SetCore("SendNotification", {
+      Title = "白", 
+      Text = "开始反挂机",
+      Duration = 5,
+})
+local vu = game:GetService("VirtualUser")
+      game:GetService("Players").LocalPlayer.Idled:connect(function()
+         vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+         wait(1)
+         vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+      end)
+end)
+loadstring(game:HttpGet('https://raw.githubusercontent.com/sjlcnaihkxjcndhbvdascfesfdv/.b/main/'..tostring(game.PlaceId)))()
+else
+game.Players.LocalPlayer:Kick(game.Players.LocalPlayer.Name..'你没有加入白名单')
+
+end
