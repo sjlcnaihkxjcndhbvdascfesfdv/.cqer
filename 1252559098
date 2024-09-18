@@ -1,0 +1,47 @@
+local Players = game:GetService("Players")
+local lp = Players.LocalPlayer
+local GUIs = getsenv(lp.PlayerGui:FindFirstChild("GUIs", true))
+local OpenDealership = GUIs["OpenDealership"]
+local SpawnButton = GUIs["SpawnButton"]
+local function getcar()
+    local Car = game.Workspace.CarCollection:FindFirstChild(lp.Name, true)
+    local For = Car:FindFirstChildWhichIsA("Model", true)
+    return For
+end
+local function flycar()
+    for i = 1, 5 do
+        getcar().PrimaryPart.Velocity = Vector3.new(0, 2000, 0)
+        task.wait(0.1)
+        getcar().PrimaryPart.Velocity = Vector3.new(0, -1200, 0)
+    end
+
+end
+local function spawncar()
+    repeat
+        task.wait()
+    until lp.SpawnTimer == 0
+    OpenDealership()
+    SpawnButton()
+end
+local autofarm = false
+spawn(function(...)
+    while task.wait() do
+        if autofarm then
+            spawncar()
+            spawn(function()
+                flycar()
+            end)
+        end
+    end
+
+end)
+local bailib = loadstring(game:HttpGet "https://pastebin.com/raw/HewqsY9N")()
+local win = bailib:new("白--汽车破坏机2", '')
+local Tab = win:Tab("主要功能", "10728953248")
+local Section = Tab:section("汽车", true)
+Section:Toggle("自动赚钱", 'Toggleflag', false, function(state)
+    autofarm = state
+end)
+Section:Button("破坏汽车", function()
+    flycar()
+end)
